@@ -12,4 +12,5 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing the Docker image...
+      - echo Sync Docker storage to s3...
+      - aws s3 /var/lib/docker/aufs s3://wesblake-codebuild-cache/  
