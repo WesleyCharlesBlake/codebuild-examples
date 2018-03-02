@@ -13,5 +13,6 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Sync Docker storage to s3...
-      - ls /var/lib/docker/
-      - aws s3 sync /var/lib/docker/ s3://wesblake-codebuild-cache/  
+      - ls -al /var/lib/docker/overlay
+      - du -hsc /var/lib/docker/overlay
+      #- aws s3 sync /var/lib/docker/ s3://wesblake-codebuild-cache/  
