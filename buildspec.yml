@@ -3,10 +3,14 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
+      - echo Logging in to Amazon ECR...erlay
+      - ls -al /var/lib/docker/overlay
+      - docker images
   build:
     commands:
       - echo Building the Docker image...          
+      - ls -al /var/lib/docker/overlay/
+      - docker images
       - docker build -t testimage:v.0.0.1 .
   post_build:
     commands:
