@@ -4,7 +4,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws s3 cp s3://wesblake-codebuild-cache/docker-local.tar.gz /tmp/
+      #- aws s3 cp s3://wesblake-codebuild-cache/docker-local.tar.gz /tmp/
       #- tar -zxvf /tmp/docker-local.tar.gz /var/lib/docker
       - ls -al /var/lib/docker/overlay
       - docker images
