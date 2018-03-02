@@ -4,6 +4,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...erlay
+      - tar -xcvf /tmp/docker-local.tar.gz /var/lib/docker
       - ls -al /var/lib/docker/overlay
       - docker images
   build:
@@ -15,8 +16,8 @@ phases:
   post_build:
     commands:
       - echo Sync Docker storage to s3...
-      #- tar -zcvf /tmp/docker-local.tar.gz /var/lib/docker
+      - tar -zcvf /tmp/docker-local.tar.gz /var/lib/docker
       #- aws s3 cp docker-local.tar.gz s3://wesblake-codebuild-cache/  
 cache:
   paths:
-    - '/var/lib/docker'
+    - '/tmp/docker-local.tar.gz'
