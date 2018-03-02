@@ -4,7 +4,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...erlay
-      - tar -xcvf /tmp/docker-local.tar.gz /var/lib/docker
+      - tar -zxvf /tmp/docker-local.tar.gz /var/lib/docker
       - ls -al /var/lib/docker/overlay
       - docker images
   build:
