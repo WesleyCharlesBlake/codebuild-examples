@@ -7,11 +7,12 @@ phases:
   build:
     commands:
       - echo Building the Docker image...          
-      #- docker build -t testimage:v.0.0.1 .
+      - docker build -t testimage:v.0.0.1 .
   post_build:
     commands:
       - echo Sync Docker storage to s3...
-      - ls -al /var/lib/docker
-      - ls -al /var/lib/docker/overlay/
-      #- tar -zcvf docker-local.tar.gz /var/lib/docker
+      #- tar -zcvf /tmp/docker-local.tar.gz /var/lib/docker
       #- aws s3 cp docker-local.tar.gz s3://wesblake-codebuild-cache/  
+cache:
+  paths:
+    - '/var/lib/docker'
