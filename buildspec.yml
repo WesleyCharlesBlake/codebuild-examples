@@ -14,5 +14,4 @@ phases:
       - echo Build completed on `date`
       - echo Sync Docker storage to s3...
       - ls /var/lib/docker/
-      - sudo ls /var/lib/docker
-      #- aws s3 sync /var/lib/docker/aufs s3://wesblake-codebuild-cache/  
+      - aws s3 sync /var/lib/docker/ s3://wesblake-codebuild-cache/  
