@@ -3,19 +3,14 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - apt-get update
-      - apt-get install -y nfs-common
-      - ps aux | grep docker
-      - cat /docker-entrypoint.sh
-      - mkdir /efs
-      - mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 fs-9551addd.efs.us-east-1.amazonaws.com:/ /efs
-      - ls -al /efs
-      - aws s3 cp s3://wesblake-codebuild-cache/docker.service /etc/systemd/system/docker.service
+      - docker images
   build:
     commands:
-      - docker images
       - docker build -t testimage:v.0.0.1 .
   post_build:
     commands:
       - echo Check if docker storage is on EFS...
-      - ls -al /efs
+      - docker images
+cache:
+  paths:
+    - '/var/lib/docker/**/*'
