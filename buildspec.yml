@@ -5,7 +5,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws s3 cp s3://wesblake-codebuild-cache/docker-local.tar.gz /
-      - tar -xf /docker-local.tar.gz
+      - tar -xvf /docker-local.tar.gz
       - ls -al /var/lib/docker/overlay
       - docker images
   build:
