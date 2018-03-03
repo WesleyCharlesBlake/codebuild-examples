@@ -11,7 +11,6 @@ phases:
   build:
     commands:
       - echo 'Building the Docker image'...          
-      - ls -al /var/lib/docker/overlay/
       - docker images
       - docker build -t testimage:v.0.0.1 .
   post_build:
