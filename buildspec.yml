@@ -9,7 +9,7 @@ phases:
     commands:
       - ps aux | grep docker
       - rm /usr/local/bin/dockerd-entrypoint.sh
-      - mv $CODEBUILD_SRC_DIRdockerd-entrypoint.sh /usr/local/bin/
+      - mv $CODEBUILD_SRC_DIR/dockerd-entrypoint.sh /usr/local/bin/
       - kill -9 $(ps aux | grep dockerd-entrypoint | awk '{print $2}')
       - mkdir /efs
       - mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 fs-9551addd.efs.us-east-1.amazonaws.com:/ /efs
