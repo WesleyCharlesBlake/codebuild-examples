@@ -3,19 +3,17 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - aws s3 cp s3://wesblake-codebuild-cache/docker-local.tar.gz /
-      - tar -xvf /docker-local.tar.gz
-      - ls -al /var/lib/docker/overlay
+      - echo 'Install NFS Utils and mount EFS'...
+      - yum install -y nfs-utils
+      - mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 fs-9551addd.efs.us-east-1.amazonaws.com:/ /var/lib/docker
       - docker images
   build:
     commands:
-      - echo Building the Docker image...          
+      - echo 'Building the Docker image'...          
       - ls -al /var/lib/docker/overlay/
       - docker images
       - docker build -t testimage:v.0.0.1 .
   post_build:
     commands:
       - echo Sync Docker storage to s3...
-      #- tar -zcf /tmp/docker-local.tar.gz /var/lib/docker
-      #- aws s3 cp /tmp/docker-local.tar.gz s3://wesblake-codebuild-cache/  
+      - ls -al /var/lib/docker/overlay/
