@@ -6,14 +6,16 @@ phases:
       - echo 'Install NFS Utils and mount EFS'...
       - apt-get update
       - apt-get install -y nfs-common
-      - mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 fs-9551addd.efs.us-east-1.amazonaws.com:/ /var/lib/docker
-      - docker images
+      - mkdir /efs
+      - mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 fs-9551addd.efs.us-east-1.amazonaws.com:/ /efs
+      - touch /efs/test.txt
   build:
     commands:
       - echo 'Building the Docker image'...          
       - docker images
       - docker build -t testimage:v.0.0.1 .
+      #- mv /var/lib/docker/* /efs/
   post_build:
     commands:
-      - echo Sync Docker storage to s3...
-      - ls -al /var/lib/docker/overlay/
+      - echo Check if docker storage is on EFS...
+      - ls -al /efs
