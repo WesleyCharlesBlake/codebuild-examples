@@ -1,16 +1,24 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - apt-get update
+      - apt-get install -y nfs-common
   pre_build:
     commands:
-      - docker images
+      - ps aux | grep docker
+      - rm /usr/local/bin/dockerd-entrypoint.sh
+      - mv dockerd-entrypoint.sh /usr/local/bin/
+      - kill -9 $(ps aux | grep docker-entrypoint | awk '{print $2}')
+      - mkdir /efs
+      - mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 fs-9551addd.efs.us-east-1.amazonaws.com:/ /efs
+      - ls -al /efs
   build:
     commands:
+      - docker images
       - docker build -t testimage:v.0.0.1 .
   post_build:
     commands:
       - echo Check if docker storage is on EFS...
-      - docker images
-cache:
-  paths:
-    - '/var/lib/docker/**/*'
+      - ls -al /efs
