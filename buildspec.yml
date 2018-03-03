@@ -9,7 +9,7 @@ phases:
     commands:
       - mkdir /efs
       - mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 fs-9551addd.efs.us-east-1.amazonaws.com:/ /efs
-      - kill -9 $(ps aux | grep dockerd | awk '{print $2}')
+      - pkill -f dockerd
       - /bin/sh $CODEBUILD_SRC_DIR/dockerd-entrypoint.sh while [ ! -f /codebuild/readonly/bin/executor.done ]; do sleep 1; done && /codebuild/readonly/bin/executor
   build:
     commands:
