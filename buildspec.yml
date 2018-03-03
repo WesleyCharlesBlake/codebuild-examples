@@ -13,7 +13,8 @@ phases:
       #- ls /efs
   build:
     commands:
-      - service docker reload 
+      - service docker stop
+      - service docker start 
       - echo 'Building the Docker image'...          
       - docker images
       - docker build -t testimage:v.0.0.1 .
