@@ -3,13 +3,11 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - /usr/bin/dockerd --data-root=/efs &>/var/log/docker.log
-      - mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 fs-9551addd.efs.us-east-1.amazonaws.com:/ /efs
-      - ls -al /efs
+      - echo "pre build stuff"
   build:
     commands:
-      - docker build -t testimage:v.0.0.1 .
+      - docker pull coala/base:latest
+      - docker build --cache-from coala/base:latest -t testimage:v.0.0.1 .
   post_build:
     commands:
-      - echo Check if docker storage is on EFS...
-      - ls -al /efs
+      - docker images
