@@ -6,8 +6,7 @@ phases:
       - echo "pre build stuff"
   build:
     commands:
-      - docker pull coala/base:latest
-      - docker build --cache-from coala/base:latest -t testimage:v.0.0.1 .
+      - docker build coala/base:latest -t testimage:v.0.0.1 .
   post_build:
     commands:
       - docker images
