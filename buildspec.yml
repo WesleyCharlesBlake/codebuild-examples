@@ -6,7 +6,7 @@ phases:
       - echo "pre build stuff"
   build:
     commands:
-      - docker build -t testimage:v.0.0.1 .
+      - docker build -t href-counter .
   post_build:
     commands:
       - docker images
